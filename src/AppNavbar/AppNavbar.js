@@ -14,7 +14,7 @@ export default function AppNavbar({
         <Navbar bg="light" expand="lg">
             <div style={{ display: 'flex', justifyContent: "space-between", width: '100%' }}>
                 <div style={{ display: 'flex' }}>
-                    <Navbar.Brand onClick={onHomeClicked}>Supa Shopping</Navbar.Brand>
+                    <Navbar.Brand onClick={onHomeClicked}>Supa Fruits</Navbar.Brand>
                     {signedIn ? <Nav.Link onClick={onToCart}>Cart</Nav.Link> : null}
                 </div>
 

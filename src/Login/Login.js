@@ -40,7 +40,7 @@ export default function Login() {
         <div className="Login">
             <Container>
                 <div className="inputs">
-                    <h1>SupaShopping</h1>
+                    <h1>Supa Fruits</h1>
                     <InputGroup className="mb-3">
                         <FormControl
                             placeholder="Email"

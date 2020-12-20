@@ -52,8 +52,8 @@ function App() {
           ) :
             (
               <>
-                <Route path="/cart" component={Cart} />
-                <Route path="/" exact component={Listing} />
+                <Route path="/cart" render={() => <Cart user={user.user} />} />
+                <Route path="/" exact render={() => <Listing user={user.user} />} />
               </>
             )
           }

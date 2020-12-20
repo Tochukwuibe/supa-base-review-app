@@ -36,6 +36,7 @@ code {
   align-items: center;
   padding: 5px;
   border-bottom: 1px solid grey;
+  justify-content: space-between;
 }
 
 .ListItem img {
@@ -43,3 +44,24 @@ code {
   margin-right: 2em;
   max-width: 70px;
 }
+
+.ListItem h4 {
+  min-width: 60px;
+  margin-right: 2em;
+  max-width: 70px;
+}
+
+.ListItem span {
+ border: 1px solid rgb(85, 85, 85);
+ background-color: gray;
+ font-weight: bold;
+ display: block;
+ min-width:  30px;
+ text-align: center;
+ cursor: pointer;
+}
+
+.ListItem span.remove {
+  background-color: red;
+  color: white;
+ }
