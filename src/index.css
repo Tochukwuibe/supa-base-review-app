@@ -11,3 +11,35 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.Login .inputs {
+      margin: 0 auto;
+      margin-top: 200px;
+      max-width: 400px;
+  
+}
+
+.Login .login-button {
+  margin:  auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.Login {
+  text-align: center;
+}
+
+.ListItem {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border-bottom: 1px solid grey;
+}
+
+.ListItem img {
+  min-width: 60px;
+  margin-right: 2em;
+  max-width: 70px;
+}
