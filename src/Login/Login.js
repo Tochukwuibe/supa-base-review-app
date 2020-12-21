@@ -1,13 +1,12 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import Container from 'react-bootstrap/Container';
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button';
-import { SuperBaseContext } from '../superbaseContext';
+import { superbase } from '../superbaseContext';
 
 export default function Login() {
 
-    const superbase = useContext(SuperBaseContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 

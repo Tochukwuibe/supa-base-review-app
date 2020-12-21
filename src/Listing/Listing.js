@@ -1,21 +1,43 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ListItem from '../ListItem/ListItem'
-import { SuperBaseContext } from '../superbaseContext'
+import { superbase } from '../superbaseContext';
 
 export default function Listing({
     user
 }) {
 
-    const superbase = useContext(SuperBaseContext);
     const [fruits, setFruits] = useState([]);
+    const [newFruit, setNewFruit] = useState([]);
+
 
     useEffect(() => {
         const ref = superbase.from('listings')
         ref.then(({ data }) => setFruits(data));
-        return ref.on("*", ({ new: _new }) => {
-            setFruits(fruits.map((fruit) => fruit.id === _new.id ? _new : fruit));
-        }).subscribe()
+
+        return ref
+            .on("INSERT", ({ new: _new }) => {
+                setNewFruit(_new);
+            })
+            .on("UPDATE", ({ new: _new }) => {
+                setNewFruit(_new)
+            }).subscribe()
+
     }, [])
+
+    useEffect(() => {
+
+        if (newFruit) {
+            const curr = fruits.find((fruit) => fruit.id === newFruit.id);
+            let newFruits = [...fruits];
+            if (curr) {
+                newFruits = newFruits.map((fruit) => fruit.id === newFruit.id ? newFruit : fruit)
+            } else {
+                newFruits.push(newFruit)
+            }
+            setFruits(newFruits);
+        }
+
+    }, [newFruit])
 
     const onAddToCart = async (itemId) => {
         try {

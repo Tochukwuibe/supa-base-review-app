@@ -1,25 +1,36 @@
-import React, { useEffect, useContext, useState } from 'react'
-import { SuperBaseContext } from '../superbaseContext';
+import React, { useEffect, useState } from 'react'
 import ListItem from '../ListItem/ListItem'
-import { useRef } from 'react';
+import { superbase } from '../superbaseContext';
 
 
 export default function Cart({ user }) {
 
     const [fruits, setFruits] = useState([]);
-    const superbase = useContext(SuperBaseContext);
-    const ref = useRef(superbase.from('cart'));
+    const [deletedFruit, setDeletedFruit] = useState(null);
 
-    console.log("The fruits ", fruits);
+
     useEffect(() => {
+        const ref = superbase.from('cart')
 
-
-        ref.current.select("*, fruit: listings(*)")
+        ref.select("*, fruit: listings(*)")
             .filter('userId', 'eq', user.id)
             .then(({ data }) => setFruits(data))
             .catch((err) => console.log("The then error ", err));
 
+        return ref
+            .on("DELETE", (data) => {
+                console.log("the deleted data ", data);
+                setDeletedFruit(data.old)
+            }).subscribe()
+
     }, []);
+
+
+    useEffect(() => {
+        if (deletedFruit) {
+            setFruits(fruits.filter(({ id }) => id !== deletedFruit.id))
+        }
+    }, [deletedFruit])
 
     const onRemoveFromCart = async (id) => {
         try {
@@ -27,8 +38,6 @@ export default function Cart({ user }) {
                 .from('cart')
                 .delete()
                 .match({ itemId: id, userId: user.id })
-
-            setFruits(fruits.filter(({ fruit }) => fruit.id !== id));
 
         } catch (e) {
 
@@ -38,8 +47,9 @@ export default function Cart({ user }) {
     return (
         <div>
             {fruits.map(({
+                id,
                 fruit: {
-                    id,
+                    id: fruitId,
                     name,
                     image
                 }
@@ -48,7 +58,7 @@ export default function Cart({ user }) {
                     key={id}
                     img={image}
                     title={name}
-                    onRemoveClick={() => onRemoveFromCart(id)}
+                    onRemoveClick={() => onRemoveFromCart(fruitId)}
                 />
             ))
 
